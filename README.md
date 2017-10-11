@@ -13,7 +13,7 @@
         SERVICE_HOST: [...] # target hostname
       labels:
         io.rancher.container.pull_image: always
-      image: git.webvariants.de:4567/stack/auth-proxy:latest
+      image: registry.labs.newnow.de/stack/auth-proxy:latest
       log_opt:
         max-file: '2'
         max-size: 64k

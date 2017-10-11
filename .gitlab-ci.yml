@@ -1,19 +1,26 @@
+stages:
+  - build
+
+before_script:
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
 build-master:
+  stage: build
   tags:
     - docker-builder
   script:
     - docker build --force-rm --pull -t $CI_REGISTRY_IMAGE .
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker push $CI_REGISTRY_IMAGE
   only:
     - master
 
 build-tag:
+  stage: build
   tags:
-    - docker-builde
+    - docker-builder
   script:
     - docker build --force-rm --pull -t $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG .
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
   only:
     - tags
